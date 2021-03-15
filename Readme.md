@@ -10,4 +10,4 @@ Second Year Second Semester
 
 ### Assignments Completed
 
-1. [Assignment 1](./LinkedList/README.md)
+1. [Assignment 1](/LinkedList/Readme.md)
