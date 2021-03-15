@@ -15,7 +15,9 @@ struct Node{
 void insert(char location[6],int data,struct Node* *head_ref);
 void insertion_at_beginning(struct Node* *head_ref,int data);
 void insertion_at_end(struct Node* *head_ref,int data);
-void print_linkedlist(struct Node* node);
+void display(struct Node* node);
+void deletebyvalue(struct Node* *head_ref,int data);
+void deletebyreference(struct Node* *reference);
 
 
 int main(){
@@ -23,10 +25,12 @@ int main(){
     struct Node* new_node  = NULL;
     insert("start",5,&new_node);
     insert("end",15,&new_node);
-    print_linkedlist(new_node);
+    insert("end",20,&new_node);
+    deletebyvalue(&new_node,45);
+    display(new_node);
+    deletebyreference(&new_node);
 
 }
-
 void insert(char location[6],int data,struct Node* *head_ref){
     // The main function for the user to insert a node at the beginning or end based on given choices
     int option = 0;
@@ -86,17 +90,59 @@ void insertion_at_end(struct Node* *head_ref,int data){
             //the list is empty and the new_node should be the first node
             *head_ref = new_node;
         }
+    printf("new node added to the last with value %d\n",data);
 
 
 }
 
-void print_linkedlist(struct Node* node){
+void display(struct Node* node){
     //prints all the elements of a given node
+    printf("\ncurrent complete node is:- \n"); //adding one single line for just visual aspects only
     while (node!= NULL)
     {
         //till not it reaches to last node it prints node data
         printf("%d ",node->data);
         node = node->next;
     }
+    printf("\n");
     
+}
+
+void deletebyvalue(struct Node* *head_ref,int data){
+    //delete a node
+    struct Node* temp = *head_ref;
+    struct Node* prev_node;
+    
+    //checking that the given value is first node or not
+    if (temp != NULL && temp->data == data) {
+        *head_ref = temp->next; 
+        printf("node deleted with data %d \n",temp->data);
+        free(temp); 
+        return;
+    }
+    //traversing the list for finding the node
+    while (temp != NULL && temp->data != data) {
+        prev_node = temp;
+        temp = temp->next;
+    }
+ 
+    // If key was not present in linked list
+    if (temp == NULL){
+        printf("the node for deletion is not found in the list\n");
+      return;
+    } 
+
+    prev_node->next = temp->next;
+    printf("node deleted with data %d ",temp->data);
+    free(temp); // Freeing the node
+}
+
+void deletebyreference(struct Node* *reference){
+    //this function deletes the node given by the pointer
+    struct Node* node = *reference;
+    node = node->next;
+    printf("node deleted with data %d \n",node->data);
+    free(node);
+
+
 }
