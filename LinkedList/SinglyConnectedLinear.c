@@ -30,6 +30,8 @@ int main(){
     display(new_node);
     deletebyreference(&new_node);
 
+    return 0;
+
 }
 void insert(char location[6],int data,struct Node* *head_ref){
     // The main function for the user to insert a node at the beginning or end based on given choices
