@@ -11,9 +11,10 @@ struct Node{
 };
 
 
+
 void insert_at_beginning(struct Node* *head_ref,int data);
 void display(struct Node* head_ref);
-void delete(struct Node* *reference,struct Node* *head_ref);
+void deleteNode(struct Node* head, int key);
 
 int main(){
     struct Node* head  = NULL;
@@ -21,10 +22,10 @@ int main(){
     insert_at_beginning(&head,10);
     insert_at_beginning(&head,15);
     insert_at_beginning(&head,20);
-    delete(&head,&head);
+    display(head);
+    deleteNode(head,100);
     display(head);
     return 0;
-
 
 }
 
@@ -64,55 +65,56 @@ void insert_at_beginning(struct Node* *head_ref,int data){
     printf("Node added with value %d and address %p\n",new_node->data,new_node->next);
 }
 
-void delete(struct Node* *reference,struct Node* *head_ref){
-    //deleting a value based on given reference
-    // Three case may be arrived -> The node is First node , May be last node and may be other nodes
-
-    // If it is first node then to maintain circular strcuture we have to link the last node to the next head_ref.
-    // If it is last node then to maintain circular structure we have to link the *head_ref with prev of deleted node.
-    // If any other case happens then it will be similar to the linear structure
-
-    if(head_ref != NULL){
-        //Checking the list is not empty
-
-        struct Node* temp = *head_ref; // Preserving the head_ref
-        struct Node* given_node = *reference;
-
-        if(*head_ref == given_node){
-            //First case
-            *head_ref = given_node->next;
-            printf("head node deleted with data %d \n",given_node->data);
-            free(given_node);
-            return;
-
-        }else if(given_node->next = *head_ref){
-            //Second Case
-
-            //Step 1 :: Traverse the list from head_ref to get last nodes' just prev node
-            struct Node* prev; // To preserve the value of prev
-            while (temp!= given_node)
-            {   
-                prev = temp;
-                temp = temp->next;
-            }
-            // Step 2 :: After reaching to prev_node just link it to the head_ref and delete the given_node
-            prev->next = *head_ref;
-            printf("last node deleted with data %d \n",given_node->data);
-            free(given_node);
-            return;
-
-        }else{
-            //Any other case
-            struct Node* node = *reference;
-            node = node->next;
-            printf("node deleted with data %d \n",node->data);
-            free(node);
-            return;
-        }
-
-    }else{
-        printf("The list is empty. \n");
+void deleteNode(struct Node* head, int key)
+{
+    if (head == NULL)
         return;
+ 
+    // Find the required node
+    struct Node *curr = head, *prev;
+    while (curr->data != key) 
+    {
+        if (curr->next == head)
+        {
+            printf("\nGiven node is not found"
+                   " in the list!!!");
+            break;
+        }
+ 
+        prev = curr;
+        curr = curr->next;
+    }
+ 
+    // Check if node is only node
+    if (curr->next == head) 
+    {
+        head = NULL;
+        free(curr);
+        return;
+    }
+ 
+    // If more than one node, check if
+    // it is first node
+    if (curr == head) 
+    {
+        prev = head;
+        while (prev->next != head)
+            prev = prev->next;
+        head = curr->next;
+        prev->next = head;
+        free(curr);
+    }
+ 
+    // check if node is last node
+    else if (curr->next == head && curr == head) 
+    {
+        prev->next = head;
+        free(curr);
+    }
+    else
+    {
+        prev->next = curr->next;
+        free(curr);
     }
 }
 
@@ -129,6 +131,7 @@ void display(struct Node* head_ref){
             temp=temp->next;
         }
         while (temp!=head_ref); // The condition till priting of list work
+        printf("\n");
         
     }else{
         printf("The list is empty. \n");
