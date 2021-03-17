@@ -10,12 +10,12 @@ struct Node{
     struct Node* next;
 };
 
-
-
+//Al functions
 void insert_at_beginning(struct Node* *head_ref,int data);
 void display(struct Node* head_ref);
 void deleteNode(struct Node* head, int key);
 
+//The main function
 int main(){
     struct Node* head  = NULL;
     insert_at_beginning(&head,5);

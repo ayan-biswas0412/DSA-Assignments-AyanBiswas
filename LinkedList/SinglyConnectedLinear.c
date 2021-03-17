@@ -12,6 +12,7 @@ struct Node{
     struct Node* next;
 };
 
+//Al functions
 void insert(char location[6],int data,struct Node* *head_ref);
 void insertion_at_beginning(struct Node* *head_ref,int data);
 void insertion_at_end(struct Node* *head_ref,int data);
@@ -19,9 +20,9 @@ void display(struct Node* node);
 void deletebyvalue(struct Node* *head_ref,int data);
 void deletebyreference(struct Node* *reference);
 
-
+//The main function
 int main(){
-    //the main driver code to test the programs;
+
     struct Node* new_node  = NULL;
     insert("start",5,&new_node);
     insert("end",15,&new_node);
