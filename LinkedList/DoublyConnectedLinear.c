@@ -21,15 +21,20 @@ struct Node* head = NULL;
 //Al functions
 void insert_at_beginning(struct Node* *head_ref, int data);
 void insertion_at_end(struct Node* *head_ref,int data);
-void insert_after_given(struct Node* reference_node, int data);
+int checklenghtofList(struct Node* *head_ref);
+void deletebyreference(struct Node* *head_ref,int deleteAfter);
+void insert_after_given_number(struct Node* *head_ref,int insertAfter,int data);
 void display(struct Node* node);
 
 //The main function
 int main(){
     insert_at_beginning(&head,5);
     insert_at_beginning(&head,10);
-    insert_after_given(head->next,26);
     insertion_at_end(&head,20);
+    display(head);
+    deletebyreference(&head,2);
+    display(head);
+    insert_after_given_number(&head,1,98);
     display(head);
     return 0;
 }
@@ -83,26 +88,43 @@ void insertion_at_end(struct Node* *head_ref,int data){
     
 }
 
-void insert_after_given(struct Node* reference_node, int data){
-
-    //check if the list is empty
-    if(reference_node == NULL){
-        printf("The given reference node can't be null");
+void insert_after_given_number(struct Node* *head_ref,int insertAfter,int data){
+    if(*head_ref == NULL){
+        printf("The given list is empty\n");
         return;
-    }else{
-        //allocate the node and insert the data
-        struct Node* new_node  = (struct Node*)malloc(sizeof(struct Node));
-        new_node->data = data;
-
-        new_node->next = reference_node->next;
-        reference_node->next = new_node;
-        new_node->prev = reference_node;
-
-        if (new_node->next != NULL)
-        new_node->next->prev = new_node;
-        printf("node added after the given node with data : %d\n",new_node->data);
     }
+    //check the lenghth of the list
+    int lenghth = checklenghtofList(head_ref);
+    if(lenghth>= insertAfter){
+        //check if there is sufficient number of nodes available for deletion
+        struct Node* temp = *head_ref;
+        int index = 1;
+        for(index=1;index<insertAfter;index++){
+            temp = temp->next;
+        }
+        //reached to the desired node
+        if(temp->next == NULL){
+            //it is the last node
+            printf("Last node reached so no node available further\n");
+            return;
+        }
 
+        //perform the actual operation of insertion
+        //Step 1 : Create a new_node
+        struct Node* new_node = (struct Node*)malloc(sizeof(struct Node));
+        // Step 2 : insert the data
+        new_node->data = data;
+        //Step 3 : Assign new_node's next part
+        new_node->next = temp->next;
+        new_node->prev = temp;
+        temp->next = new_node;
+        new_node->next->prev = new_node;
+        
+        printf("new node added with data  %d \n",new_node->data);
+    }else{
+        printf("Insufficient number of nodes available for new node addition\n");
+        return;
+    }
 }
 
 void display(struct Node* node){
@@ -123,5 +145,53 @@ void display(struct Node* node){
         printf("%d ",last_node->data);
         last_node = last_node->prev;
     }
+    printf("\n");
+    
+}
+
+void deletebyreference(struct Node* *head_ref,int deleteAfter){
+    //check the list is not empty
+    if(*head_ref == NULL){
+        printf("The given list is empty\n");
+        return;
+    }
+    //check the lenghth of the list
+    int lenghth = checklenghtofList(head_ref);
+    if(lenghth>= deleteAfter){
+        //check if there is sufficient number of nodes available for deletion
+        struct Node* temp = *head_ref;
+        int index = 0;
+        for(index=0;index<deleteAfter;index++){
+            temp = temp->next;
+        }
+        //reached to the desired node
+        if(temp->next == NULL){
+            //it is the last node
+            printf("Last node reached so no node available further\n");
+            return;
+        }
+        temp->prev->next = temp->next;
+        temp->next->prev = temp->prev;
+        free(temp);
+        //success message
+        printf("node deleted with data %d\n",temp->data);
+    }else{
+        printf("Insufficient number of nodes available\n");
+        return;
+    }
+
+
+}
+
+int checklenghtofList(struct Node* *head_ref){
+    struct Node* temp = *head_ref;
+    int length = 0;
+    while (temp->next!=NULL)
+    {
+        /* code */
+        temp=temp->next;
+        length = length+1;
+    }
+    return length;
     
 }
