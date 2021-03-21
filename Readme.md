@@ -11,3 +11,4 @@ Second Year Second Semester
 ### Assignments Completed
 
 1. [Assignment 1](/LinkedList/Readme.md)
+2. [Assignment 2](/Stack/Readme.md)
