@@ -216,13 +216,13 @@ void userDriver(int programRunIteration){
     {
     case 1:
         
-        printf("Enter a number to add to the list");
+        printf("Enter a number to add to the list : ");
         scanf("%d",&numberToadd);
         insert("start",numberToadd,&main_node);
         display(main_node);
         break;
     case 2:
-        printf("Enter a number to add to the list");
+        printf("Enter a number to add to the list : ");
         scanf("%d",&numberToaddLast);
         insert("end",numberToaddLast,&main_node);
         display(main_node);
@@ -232,7 +232,7 @@ void userDriver(int programRunIteration){
         display(main_node);
         break;
     case 4:
-        printf("Enter the position from where you want to delete an element.\n");
+        printf("Enter the position from where you want to delete an element : ");
         scanf("%d",&position);
         deletebyreference(&main_node,position);
         display(main_node);

@@ -13,18 +13,29 @@ struct Node{
 //Al functions
 void insert_at_beginning(struct Node* *head_ref,int data);
 void display(struct Node* head_ref);
-void deleteNode(struct Node* head, int key);
+void insert_at_last(struct Node* *head_ref,int data);
+void deleteNodeByReference(struct Node* *head_ref,int position);
+int count_nodes(struct Node* head_ref);
+
+//Global head declearation 
+struct Node* head  = NULL;
+
+//Global variable to re-run the entire flow
+char userDefaultChoice = 'Y';
+//Function to control user driven approach
+void userDriver(int programRunIteration);
 
 //The main function
 int main(){
-    struct Node* head  = NULL;
-    insert_at_beginning(&head,5);
-    insert_at_beginning(&head,10);
-    insert_at_beginning(&head,15);
-    insert_at_beginning(&head,20);
-    display(head);
-    deleteNode(head,100);
-    display(head);
+
+    int programRunIteration = 1;
+
+    while (userDefaultChoice == 'Y')
+    {
+        userDriver(programRunIteration);
+        programRunIteration++;
+        
+    };
     return 0;
 
 }
@@ -65,60 +76,6 @@ void insert_at_beginning(struct Node* *head_ref,int data){
     printf("Node added with value %d and address %p\n",new_node->data,new_node->next);
 }
 
-void deleteNode(struct Node* head, int key)
-{
-    if (head == NULL)
-        return;
- 
-    // Find the required node
-    struct Node *curr = head, *prev;
-    while (curr->data != key) 
-    {
-        if (curr->next == head)
-        {
-            printf("\nGiven node is not found"
-                   " in the list!!!");
-            break;
-        }
- 
-        prev = curr;
-        curr = curr->next;
-    }
- 
-    // Check if node is only node
-    if (curr->next == head) 
-    {
-        head = NULL;
-        free(curr);
-        return;
-    }
- 
-    // If more than one node, check if
-    // it is first node
-    if (curr == head) 
-    {
-        prev = head;
-        while (prev->next != head)
-            prev = prev->next;
-        head = curr->next;
-        prev->next = head;
-        free(curr);
-    }
- 
-    // check if node is last node
-    else if (curr->next == head && curr == head) 
-    {
-        prev->next = head;
-        free(curr);
-    }
-    else
-    {
-        prev->next = curr->next;
-        free(curr);
-    }
-}
-
-
 void display(struct Node* head_ref){
 
     struct Node* temp = head_ref; // preserving the address head_ref
@@ -134,7 +91,135 @@ void display(struct Node* head_ref){
         printf("\n");
         
     }else{
-        printf("The list is empty. \n");
+        printf("The list is empty !!. \n");
+    }
+
+}
+
+void insert_at_last(struct Node* *head_ref,int data){
+    //create a node and enter the data
+    struct Node* new_node  = (struct Node*)malloc(sizeof(struct Node));
+    new_node->data = data;
+    
+    struct Node* temp = *head_ref;
+    struct Node* prev_node;
+
+    if(*head_ref == NULL){
+        //it is the first node
+        //just point the new_node's next part to itself
+        new_node->next = new_node;
+        *head_ref = new_node;
+    }
+
+    do{
+        prev_node = temp;
+        temp=temp->next;
+    }
+    while (temp!=*head_ref);
+    // prev node is the last node
+    prev_node->next  = new_node;
+    new_node->next = *head_ref;
+}
+
+void deleteNodeByReference(struct Node* *head_ref,int position){
+
+    //if given position is out of range
+    if(count_nodes(*head_ref)<position){
+        printf("your given position is out of range so it can't be deleted");
+        return;
+    }
+    //base case checking
+    if(*head_ref== NULL){
+        printf("list is empty , nothing to be deleted\n");
+        return;
+    }
+    struct Node* temp = *head_ref; // preserving the head_ref
+    struct Node* last;
+
+    int iter =0;
+    for(iter = 0;iter<position-1;iter++){
+        if(temp->next == NULL){
+            printf("Invalid node ! Deletion is not possible\n");
+            return;
+        }
+        last = temp; // preserving the last node in each iteration
+        temp = temp->next;
+    }
+    //temp -- reached till the desired node
+    int dataDeleted = temp->data;
+    if(temp->next== *head_ref){
+        //means it is the last node
+        last->next = (*head_ref)->next;
+    }else{  
+        last->next = temp->next;
+    }
+    free(temp);
+    printf("The node deleted with data %d from position %d\n",dataDeleted,position);
+
+
+}
+
+int count_nodes(struct Node* head_ref){
+    int count = 0;
+    while (head_ref->next!=head_ref)
+    {
+        count++;
+        head_ref = head_ref->next;
+    }
+    return count+1;
+}
+
+void userDriver(int programRunIteration){
+    
+   
+    int userChoice;
+    printf("\n");
+    printf("--------------------------------------------------------\n");
+    printf("program is runnning for %d times\n",programRunIteration);
+    printf("------Perform Operations on Singly Connected Linear Linked List---\n");
+    printf("Enter 1 to Add a node into List in the beginning\n");
+    printf("Enter 2 to Add a node at the end of list\n");
+    printf("Enter 3 to display all the elements of the List\n");
+    printf("Enter 4 to delete an element from the list by it's position\n");
+    printf("--------------------------------------------------------\n");
+    printf("Enter your desired Choice to Perform Operation on Stack\n");
+    printf("Press Ctrl+C to Abort the Program\n");
+    scanf("%d",&userChoice);
+
+    int pushValue;
+    int numberToadd=0;
+    int numberToaddLast=0;
+    int position = 0;
+
+    switch (userChoice)
+    {
+    case 1:
+        
+        printf("Enter a number to add to the list: ");
+        scanf("%d",&numberToadd);
+        insert_at_beginning(&head,numberToadd);
+        display(head);
+        break;
+    case 2:
+        printf("Enter a number to add to the list: ");
+        scanf("%d",&numberToaddLast);
+        insert_at_last(&head,numberToaddLast);
+        display(head);
+        break;
+    case 3:
+        printf("Displaying the list.......\n");
+        display(head);
+        break;
+    case 4:
+        printf("Enter the position from where you want to delete an element: ");
+        scanf("%d",&position);
+        deleteNodeByReference(&head,position);
+        display(head);
+        break;
+    
+    default:
+        printf("You have not chosen proper value please retry again.......\n");
+        break;
     }
 
 }
