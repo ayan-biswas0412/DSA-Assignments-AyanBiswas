@@ -12,25 +12,33 @@ struct Node{
     struct Node* next;
 };
 
+struct Node* main_node  = NULL;
+
 //Al functions
 void insert(char location[6],int data,struct Node* *head_ref);
 void insertion_at_beginning(struct Node* *head_ref,int data);
 void insertion_at_end(struct Node* *head_ref,int data);
 void display(struct Node* node);
 void deletebyvalue(struct Node* *head_ref,int data);
-void deletebyreference(struct Node* *reference);
+void deletebyreference(struct Node* *head_ref,int position);
+int count_nodes(struct Node* head_ref);
+
+//Global variable to re-run the entire flow
+char userDefaultChoice = 'Y';
+//Function to control user driven approach
+void userDriver(int programRunIteration);
 
 //The main function
 int main(){
 
-    struct Node* new_node  = NULL;
-    insert("start",5,&new_node);
-    insert("end",15,&new_node);
-    insert("end",20,&new_node);
-    deletebyvalue(&new_node,45);
-    display(new_node);
-    deletebyreference(&new_node);
+    int programRunIteration = 1;
 
+    while (userDefaultChoice == 'Y')
+    {
+        userDriver(programRunIteration);
+        programRunIteration++;
+        
+    }
     return 0;
 
 }
@@ -111,6 +119,7 @@ void display(struct Node* node){
     
 }
 
+//Extra function
 void deletebyvalue(struct Node* *head_ref,int data){
     //delete a node
     struct Node* temp = *head_ref;
@@ -140,12 +149,98 @@ void deletebyvalue(struct Node* *head_ref,int data){
     free(temp); // Freeing the node
 }
 
-void deletebyreference(struct Node* *reference){
-    //this function deletes the node given by the pointer
-    struct Node* node = *reference;
-    node = node->next;
-    printf("node deleted with data %d \n",node->data);
-    free(node);
+void deletebyreference(struct Node* *head_ref,int position){
+    //checking the base condition
+    if(*head_ref == NULL){
+        printf("node is empty already so nothing to be deleted\n");
+        return;
+    }
+    
+    if(count_nodes(*head_ref)<position){
+        printf("your given position is out of range so it can't be deleted");
+        return;
+    }
 
+    struct Node* temp = *head_ref;
+    struct Node* last;
+    int temp_pos = 0;
+    for(temp_pos=0;temp_pos<position-1;temp_pos++){
+        if(temp->next == NULL){
+            printf("Invalid node ! Deletion is not possible\n");
+            return;
+        }
+        last = temp; // preserving the last node in each iteration
+        temp = temp->next;
+    }
+    //reached till desired node
+    int dataDeleted = temp->data;
+    last->next = temp->next;
+    free(temp);
+    printf("The node deleted with data %d from position %d\n",dataDeleted,position);
+
+}
+
+int count_nodes(struct Node* head_ref){
+    int count = 0;
+    while (head_ref->next!=NULL)
+    {
+        count++;
+        head_ref = head_ref->next;
+    }
+    return count+1;
+}
+
+void userDriver(int programRunIteration){
+    
+   
+    int userChoice;
+    printf("\n");
+    printf("--------------------------------------------------------\n");
+    printf("program is runnning for %d times\n",programRunIteration);
+    printf("------Perform Operations on Singly Connected Linear Linked List---\n");
+    printf("Enter 1 to Add a node into List in the beginning\n");
+    printf("Enter 2 to Add a node at the end of list\n");
+    printf("Enter 3 to display all the elements of the List\n");
+    printf("Enter 4 to delete an element from the list by it's position\n");
+    printf("--------------------------------------------------------\n");
+    printf("Enter your desired Choice to Perform Operation on Stack\n");
+    printf("Press Ctrl+C to Abort the Program\n");
+    scanf("%d",&userChoice);
+
+    int pushValue;
+    int numberToadd=0;
+    int numberToaddLast=0;
+    int position = 0;
+
+    switch (userChoice)
+    {
+    case 1:
+        
+        printf("Enter a number to add to the list");
+        scanf("%d",&numberToadd);
+        insert("start",numberToadd,&main_node);
+        display(main_node);
+        break;
+    case 2:
+        printf("Enter a number to add to the list");
+        scanf("%d",&numberToaddLast);
+        insert("end",numberToaddLast,&main_node);
+        display(main_node);
+        break;
+    case 3:
+        printf("Displaying the list.......\n");
+        display(main_node);
+        break;
+    case 4:
+        printf("Enter the position from where you want to delete an element.\n");
+        scanf("%d",&position);
+        deletebyreference(&main_node,position);
+        display(main_node);
+        break;
+    
+    default:
+        printf("You have not chosen proper value please retry again.......\n");
+        break;
+    }
 
 }
