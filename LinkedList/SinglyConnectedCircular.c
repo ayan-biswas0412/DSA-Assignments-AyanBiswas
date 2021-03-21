@@ -176,7 +176,7 @@ void userDriver(int programRunIteration){
     printf("\n");
     printf("--------------------------------------------------------\n");
     printf("program is runnning for %d times\n",programRunIteration);
-    printf("------Perform Operations on Singly Connected Linear Linked List---\n");
+    printf("------Perform Operations on Singly Connected Circular Linked List---\n");
     printf("Enter 1 to Add a node into List in the beginning\n");
     printf("Enter 2 to Add a node at the end of list\n");
     printf("Enter 3 to display all the elements of the List\n");
