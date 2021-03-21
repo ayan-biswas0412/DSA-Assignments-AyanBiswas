@@ -18,24 +18,30 @@ struct Node{
 //declaration of the head pointer as global variable
 struct Node* head = NULL;
 
+//Global variable to re-run the entire flow
+char userDefaultChoice = 'Y';
+//Function to control user driven approach
+void userDriver(int programRunIteration);
+
 //Al functions
 void insert_at_beginning(struct Node* *head_ref, int data);
 void insertion_at_end(struct Node* *head_ref,int data);
-int checklenghtofList(struct Node* *head_ref);
+int checklenghtofList(struct Node* *head_ref); 
 void deletebyreference(struct Node* *head_ref,int deleteAfter);
 void insert_after_given_number(struct Node* *head_ref,int insertAfter,int data);
 void display(struct Node* node);
 
 //The main function
 int main(){
-    insert_at_beginning(&head,5);
-    insert_at_beginning(&head,10);
-    insertion_at_end(&head,20);
-    display(head);
-    deletebyreference(&head,2);
-    display(head);
-    insert_after_given_number(&head,1,98);
-    display(head);
+
+    int programRunIteration = 1;
+
+    while (userDefaultChoice == 'Y')
+    {
+        userDriver(programRunIteration);
+        programRunIteration++;
+        
+    };
     return 0;
 }
 
@@ -194,4 +200,70 @@ int checklenghtofList(struct Node* *head_ref){
     }
     return length;
     
+}
+
+void userDriver(int programRunIteration){
+    
+   
+    int userChoice;
+    printf("\n");
+    printf("--------------------------------------------------------\n");
+    printf("program is runnning for %d times\n",programRunIteration);
+    printf("------Perform Operations on Doubly Connected Linear Linked List---\n");
+    printf("Enter 1 to Add a node into List in the beginning\n");
+    printf("Enter 2 to Add a node at the end of list\n");
+    printf("Enter 3 to Add a node into List after a given position\n");
+    printf("Enter 4 to display all the elements of the List\n");
+    printf("Enter 5 to delete an element from the list by it's position\n");
+    printf("--------------------------------------------------------\n");
+    printf("Enter your desired Choice to Perform Operation on Stack\n");
+    printf("Press Ctrl+C to Abort the Program\n");
+    scanf("%d",&userChoice);
+
+    int pushValue;
+    int numberToadd=0;
+    int numberToaddLast=0;
+    int numberToAddafterGiven = 0;
+    int position = 0;
+    int positionAfter = 0;
+
+    switch (userChoice)
+    {
+    case 1:
+        
+        printf("Enter a number to add to the list : ");
+        scanf("%d",&numberToadd);
+        insert_at_beginning(&head,numberToadd);
+        display(head);
+        break;
+    case 2:
+        printf("Enter a number to add to the list : ");
+        scanf("%d",&numberToaddLast);
+        insertion_at_end(&head,numberToaddLast);
+        display(head);
+        break;
+    case 3:
+        printf("Enter the position after which you want to add an element : ");
+        scanf("%d",&position);
+        printf("Enter the number : ");
+        scanf("%d",&numberToAddafterGiven);
+        insert_after_given_number(&head,positionAfter,numberToAddafterGiven);
+        display(head);
+        break;
+    case 4:
+        printf("Displaying the list.......\n");
+        display(head);
+        break;
+    case 5:
+        printf("Enter the position from where you want to delete an element : ");
+        scanf("%d",&position);
+        deletebyreference(&head,position);
+        display(head);
+        break;
+    
+    default:
+        printf("You have not chosen proper value please retry again.......\n");
+        break;
+    }
+
 }
