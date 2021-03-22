@@ -94,7 +94,7 @@ void Insert()
 	struct Node* new_node = newNode(x);
 	if(n==1)
     {
-        InsertHead(x);
+        InsertHead();
         return;
     }
     struct Node* previ_node = head;
@@ -188,6 +188,7 @@ int main()
 	int choose,c=1;
 	while(c==1)
     {
+        printf("------Perform Operations on Doubly Connected Circular Linked List---\n");
         printf("Enter 1 for inserting an element at the beginning\nEnter 2 for inserting at any position\nEnter 3 for inserting at end\nEnter 4 for deleting an element");
         printf("\nEnter your choice: ");
         scanf("%d",&choose);
