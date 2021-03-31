@@ -122,7 +122,7 @@ int evaluatePostfix(char* exp){
             case '*': 
                 push(stack, val2 * val1); 
                 printf("[TASK] * operator encountered and Two values popped from stack : %d and %d \n",val1,val2);
-                printf("[ Sub TASK] Multipication performed and result %d pushed to stack\n",val2 * val1); 
+                printf("[ Sub TASK] Multiplication performed and result %d pushed to stack\n",val2 * val1); 
                 break;
             case '/': 
                 push(stack, val2/val1); 
@@ -166,7 +166,7 @@ void userDriver(int programRunIteration){
     
     printf("\n");
     printf("--------------------------------------------------------\n");
-    printf("program is runnning for %d times\n",programRunIteration);
+    printf("program is running for %d times\n",programRunIteration);
     printf("------Program for determination of the evaluated value of a postfix expression---\n");
     printf("Enter the string and every character should be in ',' separated form and last character should be '$' : ");
     gets(exp);

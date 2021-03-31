@@ -165,7 +165,7 @@ void userDriver(int programRunIteration){
     int num_of_disks;
     printf("\n");
     printf("--------------------------------------------------------\n");
-    printf("program is runnning for %d times\n",programRunIteration);
+    printf("program is running for %d times\n",programRunIteration);
     printf("------Program for determination of steps for solving Tower of Hanoi Problem---\n");
     printf("Total number of tower is fixed at 3 and they are A,B and C\n");
     printf("Enter the number of tiles you want to shift from tower A to C : ");
