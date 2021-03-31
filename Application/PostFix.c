@@ -20,14 +20,37 @@ struct Stack
     int* array;
 };
   
+//All functions
+struct Stack* createStack( unsigned capacity );
+int isEmpty(struct Stack* stack);
+char peek(struct Stack* stack);
+char pop(struct Stack* stack);
+void push(struct Stack* stack, char op);
+int evaluatePostfix(char* exp);
+char filterString(char exp[],char filterparam);
+
 //Global variable to re-run the entire flow
 char userDefaultChoice = 'Y';
 //Function to control user driven approach
 void userDriver(int programRunIteration);
 
-// Stack Operations
-struct Stack* createStack( unsigned capacity )
+
+// Driver program to test above functions
+int main()
 {
+   int programRunIteration = 1;
+
+    while (userDefaultChoice == 'Y')
+    {
+        userDriver(programRunIteration);
+        programRunIteration++;
+        
+    }
+    return 0;
+}
+
+// Stack Operations
+struct Stack* createStack( unsigned capacity ){
     struct Stack* stack = (struct Stack*) malloc(sizeof(struct Stack));
   
     if (!stack) return NULL;
@@ -41,32 +64,27 @@ struct Stack* createStack( unsigned capacity )
     return stack;
 }
   
-int isEmpty(struct Stack* stack)
-{
+int isEmpty(struct Stack* stack){
     return stack->top == -1 ;
 }
   
-char peek(struct Stack* stack)
-{
+char peek(struct Stack* stack){
     return stack->array[stack->top];
 }
   
-char pop(struct Stack* stack)
-{
+char pop(struct Stack* stack){
     if (!isEmpty(stack))
         return stack->array[stack->top--] ;
     return '$';
 }
   
-void push(struct Stack* stack, char op)
-{
+void push(struct Stack* stack, char op){
     stack->array[++stack->top] = op;
 }
   
   
 // The main function that returns value of a given postfix expression
-int evaluatePostfix(char* exp)
-{
+int evaluatePostfix(char* exp){
     // Create a stack of capacity equal to expression size
     struct Stack* stack = createStack(strlen(exp));
     int i;
@@ -81,7 +99,7 @@ int evaluatePostfix(char* exp)
         // push it to the stack.
         if (isdigit(exp[i])){
             push(stack, exp[i] - '0');
-            printf("[TASK] One value pushed to stack : %d\n",exp[i] - '0');
+            printf("[TASK] One integer pushed to stack : %d\n",exp[i] - '0');
         }
         // If the scanned character is an operator, pop two
         // elements from stack apply the operator
@@ -93,27 +111,27 @@ int evaluatePostfix(char* exp)
             {
             case '+': 
                 push(stack, val2 + val1);
-                printf("[TASK] + operator encounter and Two values popped from stack : %d and %d \n",val1,val2);
+                printf("[TASK] + operator encountered and Two values popped from stack : %d and %d \n",val1,val2);
                 printf("[ Sub TASK] Addition performed and result %d pushed to stack\n",val2 + val1);  
                 break;
             case '-': 
                 push(stack, val2 - val1); 
-                printf("[TASK] - operator encounter and Two values popped from stack : %d and %d \n",val1,val2);
+                printf("[TASK] - operator encountered and Two values popped from stack : %d and %d \n",val1,val2);
                 printf("[ Sub TASK] Substraction performed and result %d pushed to stack\n",val2 - val1); 
                 break;
             case '*': 
                 push(stack, val2 * val1); 
-                printf("[TASK] * operator encounter and Two values popped from stack : %d and %d \n",val1,val2);
+                printf("[TASK] * operator encountered and Two values popped from stack : %d and %d \n",val1,val2);
                 printf("[ Sub TASK] Multipication performed and result %d pushed to stack\n",val2 * val1); 
                 break;
             case '/': 
                 push(stack, val2/val1); 
-                printf("[TASK] / operator encounter and Two values popped from stack : %d and %d \n",val1,val2);
+                printf("[TASK] / operator encountered and Two values popped from stack : %d and %d \n",val1,val2);
                 printf("[ Sub TASK] Division performed and result %d pushed to stack\n",val2/val1); 
                 break;
             case '^': 
                 push(stack, pow(val2,val1));
-                printf("[TASK] ^ operator encounter and Two values popped from stack : %d and %d \n",val1,val2);
+                printf("[TASK] ^ operator encountered and Two values popped from stack : %d and %d \n",val1,val2);
                 printf("[ Sub TASK] Exponentiation performed and result %d pushed to stack\n",pow(val2,val1));  
                 break;
             }
@@ -122,6 +140,7 @@ int evaluatePostfix(char* exp)
     return pop(stack);
 }
 
+//program to filter out the entire string and eliminate ',' and '$' to get and clearer expression
 char filterString(char exp[],char filterparam){
     int len = strlen(exp);
     int i,j;
@@ -165,19 +184,4 @@ void userDriver(int programRunIteration){
     printf("\nPress Ctrl+C to Abort the Program\n");
     
     
-}
-
-  
-// Driver program to test above functions
-int main()
-{
-   int programRunIteration = 1;
-
-    while (userDefaultChoice == 'Y')
-    {
-        userDriver(programRunIteration);
-        programRunIteration++;
-        
-    }
-    return 0;
 }
