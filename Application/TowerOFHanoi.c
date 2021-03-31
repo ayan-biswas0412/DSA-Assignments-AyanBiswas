@@ -1,6 +1,7 @@
 // Write a program for the Tower of Hanoi problem. Experiment with a varying number of discs. 
 // Show the intermediate moves in form of messages like the following:
 // Move disk ... from rod ... to rod ...
+// This program has been imolemented using the recursive technique
 
 #include<stdio.h>
 
