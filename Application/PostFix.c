@@ -79,9 +79,10 @@ int evaluatePostfix(char* exp)
     {
         // If the scanned character is an operand (number here),
         // push it to the stack.
-        if (isdigit(exp[i]))
+        if (isdigit(exp[i])){
             push(stack, exp[i] - '0');
-  
+            printf("[TASK] One value pushed to stack : %d\n",exp[i] - '0');
+        }
         // If the scanned character is an operator, pop two
         // elements from stack apply the operator
         else
@@ -90,11 +91,31 @@ int evaluatePostfix(char* exp)
             int val2 = pop(stack);
             switch (exp[i])
             {
-            case '+': push(stack, val2 + val1); break;
-            case '-': push(stack, val2 - val1); break;
-            case '*': push(stack, val2 * val1); break;
-            case '/': push(stack, val2/val1); break;
-            case '^': push(stack, pow(val2,val1)); break;
+            case '+': 
+                push(stack, val2 + val1);
+                printf("[TASK] + operator encounter and Two values popped from stack : %d and %d \n",val1,val2);
+                printf("[ Sub TASK] Addition performed and result %d pushed to stack\n",val2 + val1);  
+                break;
+            case '-': 
+                push(stack, val2 - val1); 
+                printf("[TASK] - operator encounter and Two values popped from stack : %d and %d \n",val1,val2);
+                printf("[ Sub TASK] Substraction performed and result %d pushed to stack\n",val2 - val1); 
+                break;
+            case '*': 
+                push(stack, val2 * val1); 
+                printf("[TASK] * operator encounter and Two values popped from stack : %d and %d \n",val1,val2);
+                printf("[ Sub TASK] Multipication performed and result %d pushed to stack\n",val2 * val1); 
+                break;
+            case '/': 
+                push(stack, val2/val1); 
+                printf("[TASK] / operator encounter and Two values popped from stack : %d and %d \n",val1,val2);
+                printf("[ Sub TASK] Division performed and result %d pushed to stack\n",val2/val1); 
+                break;
+            case '^': 
+                push(stack, pow(val2,val1));
+                printf("[TASK] ^ operator encounter and Two values popped from stack : %d and %d \n",val1,val2);
+                printf("[ Sub TASK] Exponentiation performed and result %d pushed to stack\n",pow(val2,val1));  
+                break;
             }
         }
     }
@@ -136,7 +157,7 @@ void userDriver(int programRunIteration){
     {
         filterString(exp,',');
         filterString(exp,'$');
-        printf ("postfix evaluation: %d\n", evaluatePostfix(exp));
+        printf ("Final Result postfix evaluation: %d\n", evaluatePostfix(exp));
     }
     else{
         printf("Entered string is empty please provide a valid string");
