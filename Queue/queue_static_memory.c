@@ -20,22 +20,27 @@ int front(struct Queue* queue);
 int rear(struct Queue* queue);
 void display(struct Queue* queue);
 
+//Global variable to re-run the entire flow
+char userDefaultChoice = 'Y';
+//Function to control user driven approach
+void userDriver(int programRunIteration,struct Queue* queue);
+
 
 // Driver program to test above functions./
 int main()
-{
-    struct Queue* queue = createQueue(1000);
- 
-    insert(queue, 10);
-    insert(queue, 20);
-    insert(queue, 30);
-    insert(queue, 40);
-    insert(queue, 50);
-    delete(queue);
-    display(queue);
- 
-    
- 
+{   
+    int queue_size;
+    printf("Enter the length of the queue you want to create : ");
+    scanf("%d",&queue_size);
+    struct Queue* queue = createQueue(queue_size);
+    printf("Queue created of size %d successfully now choose from the below optioins to perform operation on this queue :\n",queue_size);
+    int programRunIteration = 1;
+    while (userDefaultChoice == 'Y')
+    {
+        userDriver(programRunIteration,queue);
+        programRunIteration++;
+        
+    } 
     return 0;
 }
 
@@ -104,6 +109,11 @@ int rear(struct Queue* queue){
 }
 
 void display(struct Queue* queue){
+    if (isEmpty(queue)){
+        printf("The queue is empty please insert some values");
+        return;
+
+    }
     int last = queue->rear;
     int first = queue->front;
     int iter;
@@ -115,5 +125,43 @@ void display(struct Queue* queue){
     printf("\n");
     printf("Front item of the queue is %d\n", front(queue));
     printf("Rear item of the queue is %d\n", rear(queue));
+}
+
+void userDriver(int programRunIteration,struct Queue* queue){
+    
+    int userChoice;
+    printf("\n");
+    printf("--------------------------------------------------------\n");
+    printf("program is runnning for %d times\n",programRunIteration);
+    printf("------Perform Operations on Queue using Static Memory approach---\n");
+    printf("Enter 1 to Insert an Element from the queue\n");
+    printf("Enter 2 to Delete an Element from the queue\n");
+    printf("Enter 3 to display all the elements of the Queue\n");
+    printf("--------------------------------------------------------\n");
+    printf("Enter your desired Choice to Perform Operation on Queue\n");
+    printf("Press Ctrl+C to Abort the Program\n");
+    scanf("%d",&userChoice);
+    int addtoqueue;
+
+    switch (userChoice)
+    {
+    case 1:
+        printf("Enter a number to add to the queue : ");
+        scanf("%d",&addtoqueue);
+        insert(queue, addtoqueue);
+        display(queue);
+        break;
+    case 2:
+        delete(queue);
+        display(queue);
+        break;
+    case 3:
+        display(queue);
+        break;
+    default:
+        printf("You have not chosen proper value please retry again.......\n");
+        break;
+    }
+
 }
  
