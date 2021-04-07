@@ -21,21 +21,22 @@ void insert(struct Queue* q, int k);
 void delete(struct Queue* q);
 void display(struct QNode* node);
 
+//Global variable to re-run the entire flow
+char userDefaultChoice = 'Y';
+//Function to control user driven approach
+void userDriver(int programRunIteration,struct Queue* queue);
 
 // Driver Program to test anove functions
 int main()
 {
     struct Queue* q = createQueue();
-    insert(q, 10);
-    insert(q, 20);
-    delete(q);
-    insert(q, 30);
-    insert(q, 40);
-    insert(q, 50);
-    delete(q);
-    display(q->front);
-    printf("Front item of the queue is : %d \n", q->front->key);
-    printf("Rear item of the queue is : %d", q->rear->key);
+    int programRunIteration = 1;
+    while (userDefaultChoice == 'Y')
+    {
+        userDriver(programRunIteration,q);
+        programRunIteration++;
+        
+    } 
     
     return 0;
 }
@@ -94,6 +95,10 @@ void delete(struct Queue* q){
 
 void display(struct QNode* node){
     //prints all the elements of a given node
+    if(node==NULL){
+        printf("\nThe queue is empty\n"); 
+        return;
+    }
     printf("\ncurrent complete queue is:- \n"); //adding one single line for just visual aspects only
     while (node!= NULL)
     {
@@ -104,3 +109,44 @@ void display(struct QNode* node){
     printf("\n");
     
 }
+
+void userDriver(int programRunIteration,struct Queue* queue){
+    
+    int userChoice;
+    printf("\n");
+    printf("--------------------------------------------------------\n");
+    printf("program is runnning for %d times\n",programRunIteration);
+    printf("------Perform Operations on Queue using Dynamic Memory approach---\n");
+    printf("Enter 1 to Insert an Element from the queue\n");
+    printf("Enter 2 to Delete an Element from the queue\n");
+    printf("Enter 3 to display all the elements of the queue\n");
+    printf("--------------------------------------------------------\n");
+    printf("Enter your desired Choice to Perform Operation on Queue\n");
+    printf("Press Ctrl+C to Abort the Program\n");
+    scanf("%d",&userChoice);
+    int addtoqueue;
+
+    switch (userChoice)
+    {
+    case 1:
+        printf("Enter a number to add to the queue : ");
+        scanf("%d",&addtoqueue);
+        insert(queue, addtoqueue);
+        display(queue->front);
+        break;
+    case 2:
+        delete(queue);
+        display(queue->front);
+        break;
+    case 3:
+        display(queue->front);
+        printf("Front item of the queue is : %d \n", queue->front->key);
+        printf("Rear item of the queue is : %d", queue->rear->key);
+        break;
+    default:
+        printf("You have not chosen proper value please retry again.......\n");
+        break;
+    }
+
+}
+ 
