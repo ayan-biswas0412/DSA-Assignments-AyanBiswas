@@ -72,8 +72,10 @@ int isEmpty(struct Queue* queue){
 // Function to add an item to the queue.
 // It changes rear and size
 void insert(struct Queue* queue, int item){
-    if (isFull(queue))
-        return;
+    if (isFull(queue)){
+        printf("The queue is full please delete some values");
+         return;
+    }
     queue->rear = (queue->rear + 1)
                   % queue->capacity;
     queue->array[queue->rear] = item;
@@ -84,8 +86,10 @@ void insert(struct Queue* queue, int item){
 // Function to remove an item from queue.
 // It changes front and size
 int delete(struct Queue* queue){
-    if (isEmpty(queue))
+    if (isEmpty(queue)){
+        printf("The queue is empty please insert some values");
         return INT_MIN;
+    }
     int item = queue->array[queue->front];
     queue->front = (queue->front + 1)
                    % queue->capacity;
