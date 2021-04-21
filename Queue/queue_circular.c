@@ -14,7 +14,7 @@ struct node *next;
 
 node *createQueue(){
     node *rear=NULL,*front=NULL;
-    printf("How many items you want to create in queue?");
+    printf("How many items you want to create in queue? ");
     int n,data;
     scanf("%d",&n);
     int i = 0;
@@ -136,6 +136,7 @@ void main(){
                 printf("Enter value: ");
                 scanf("%d", &enqueue_element);
                 enqueue(&rear,enqueue_element);
+                display(rear,rear->next);
                 break;
             case 2:
                 dequeue(rear);
@@ -147,7 +148,7 @@ void main(){
                 display(rear,rear->next);
                 break;
             default:
-                printf("Ypu have entered a wrong choice please enter a valid one");
+                printf("You have entered a wrong choice please enter a valid one");
                 break;
         }
 
