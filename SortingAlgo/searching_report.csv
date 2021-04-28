@@ -1,4 +1,5 @@
-Dataset Length,Algorithm,Time Elapsed0,Linear Search,0.000003
+Dataset Length,Algorithm,Time Elapsed0,
+2,Linear Search,0.000003
 0,Binary Search,0.000002
 2,Linear Search,0.000007
 2,Binary Search,0.000001
