@@ -13,5 +13,6 @@ Second Year Second Semester
 1. [Assignment 1](/LinkedList)
 2. [Assignment 2](/Stack)
 3. [Assignment 3](/Application)
-3. [Assignment 4](/Queue)
-3. [Assignment 5](/Queue)
+4. [Assignment 4](/Queue)
+5. [Assignment 5](/Queue)
+6. [Assignment 6](/SortingAlgo)

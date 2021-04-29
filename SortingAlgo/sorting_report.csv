@@ -1,0 +1,26 @@
+Dataset Length,Algorithm,Time Elapsed
+7,BubbleSort,0.000003
+7,QuickSort,0.000000
+7,SelectionSort,0.000000
+7,InsertionSort,0.000000
+7,MergeSort,0.000000
+7,BubbleSort,0.000004
+7,QuickSort,0.000001
+7,SelectionSort,0.000001
+7,InsertionSort,0.000001
+7,MergeSort,0.000001
+7,BubbleSort,0.000006
+7,QuickSort,0.000001
+7,SelectionSort,0.000001
+7,InsertionSort,0.000002
+7,MergeSort,0.000001
+7,BubbleSort,0.000004
+7,QuickSort,0.000000
+7,SelectionSort,0.000000
+7,InsertionSort,0.000001
+7,MergeSort,0.000001
+7,BubbleSort,0.000002
+7,QuickSort,0.000000
+7,SelectionSort,0.000001
+7,InsertionSort,0.000002
+7,MergeSort,0.000001
