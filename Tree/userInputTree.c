@@ -155,9 +155,16 @@ int main()
     }
  
     // print inoder traversal of the BST
+    printf("The Original Tree is  :");
+    printf("\n");
     inorder(root);
     leafDelete(root);
+    printf("\nThe Tree after Deleting a node : ");
+    printf("\n");
+    inorder(root);
     deleteNode(root, 2);
+    printf("\nThe Tree after Deleting a node with one child : ");
+    printf("\n");
     inorder(root);
  
     return 0;
