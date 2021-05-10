@@ -95,14 +95,19 @@ struct node* deleteNode(struct node* root, int key)
     // If the key to be deleted
     // is smaller than the root's
     // key, then it lies in left subtree
-    if (key < root->key)
+    if (key < root->key){
         root->left = deleteNode(root->left, key);
- 
+        printf("\nThe Deleted node is %d ", key);
+
+    }
     // If the key to be deleted
     // is greater than the root's
     // key, then it lies in right subtree
-    else if (key > root->key)
-        root->right = deleteNode(root->right, key);
+    else if (key > root->key){
+         root->right = deleteNode(root->right, key);
+         printf("\nThe Deleted node is %d ", key);
+
+    }
  
     // if key is same as root's key,
     // then This is the node
@@ -128,6 +133,7 @@ struct node* deleteNode(struct node* root, int key)
         // Copy the inorder
         // successor's content to this node
         root->key = temp->key;
+        printf("\nThe Deleted node is %d ",root->key);
  
         // Delete the inorder successor
         root->right = deleteNode(root->right, temp->key);
