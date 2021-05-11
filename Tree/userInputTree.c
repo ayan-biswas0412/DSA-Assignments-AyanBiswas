@@ -140,8 +140,7 @@ struct node* deleteNode(struct node* root, int key)
     }
     return root;
 }
- 
- 
+
 // Driver Code
 int main()
 {
@@ -161,15 +160,15 @@ int main()
     }
  
     // print inoder traversal of the BST
-    printf("The Original Tree is  :");
+    printf("The Original Tree is (inOrder Traversal)  :");
     printf("\n");
     inorder(root);
     leafDelete(root);
-    printf("\nThe Tree after Deleting a node : ");
+    printf("\nThe Tree after Deleting a node (inOrder Traversal) : ");
     printf("\n");
     inorder(root);
     deleteNode(root, 2);
-    printf("\nThe Tree after Deleting a node with one child : ");
+    printf("\nThe Tree after Deleting a node with one child (inOrder Traversal) : ");
     printf("\n");
     inorder(root);
  
