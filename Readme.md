@@ -15,4 +15,6 @@ Second Year Second Semester
 3. [Assignment 3](/Application)
 4. [Assignment 4](/Queue)
 5. [Assignment 5](/Queue)
+6. [Assignment 6](/SortingAlgo)
 7. [Assignment 7](/Tree)
+
